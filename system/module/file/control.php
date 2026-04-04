@@ -442,7 +442,7 @@ class file extends control
             $i = 0;
             while(($filename = readdir($fileDir)) !== false)
             {
-                if($filename{0} == '.') continue;
+                if($filename[0] == '.') continue;
                 $file = $currentPath . $filename;
                 $fileList[$i]['filename'] = $filename;
                 if(is_dir($file))

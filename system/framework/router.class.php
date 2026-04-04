@@ -570,7 +570,7 @@ class router
      */
     public function setDebug()
     {
-        if(!empty($this->config->debug)) error_reporting(E_ALL & ~ E_STRICT);
+        if(!empty($this->config->debug)) error_reporting(E_ALL);
     }
 
     /**
@@ -1284,7 +1284,7 @@ class router
         }
 
         /* Call the method. */
-        call_user_func_array(array(&$module, $methodName), $this->params);
+        call_user_func_array(array($module, $methodName), $this->params);
         return $module;
     }
 
@@ -1735,7 +1735,7 @@ class router
         }
 
         /* If the debug > 1, show warning, notice error. */
-        if($level == E_NOTICE or $level == E_WARNING or $level == E_STRICT or $level == 8192) // 8192: E_DEPRECATED
+        if($level == E_NOTICE or $level == E_WARNING or $level == 8192) // 8192: E_DEPRECATED
         {
             if(!empty($this->config->debug) and $this->config->debug > 1)
             {

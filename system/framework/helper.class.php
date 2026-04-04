@@ -190,7 +190,7 @@ class helper
         if(empty($extFiles) and empty($hookFiles)) return $mainModelFile;
 
         /* Else, judge whether needed update or not .*/
-        $mergedModelDir  = $app->getTmpRoot() . 'model' . DS . $app->siteCode{0} . DS . $app->siteCode . DS;
+        $mergedModelDir  = $app->getTmpRoot() . 'model' . DS . $app->siteCode[0] . DS . $app->siteCode . DS;
         $mergedModelFile = $mergedModelDir . $app->siteCode . '.' . $moduleName . '.php';
         $needUpdate      = false;
         $lastTime        = file_exists($mergedModelFile) ? filemtime($mergedModelFile) : 0;
@@ -918,7 +918,7 @@ function k()
     $count    = count($keywords);
 
     $sum = 0;
-    for($i = 0; $i < $codeLen; $i++) $sum += ord($siteCode{$i});
+    for($i = 0; $i < $codeLen; $i++) $sum += ord($siteCode[$i]);
 
     $key = $sum % $count;
     return $keywords[$key];
