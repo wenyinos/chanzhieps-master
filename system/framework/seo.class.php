@@ -14,6 +14,7 @@
  *
  * @package framework
  */
+#[AllowDynamicProperties]
 class seo
 {
     /**
@@ -204,6 +205,7 @@ class seo
  *
  * @package seo
  */
+#[AllowDynamicProperties]
 class uri
 {
     /**

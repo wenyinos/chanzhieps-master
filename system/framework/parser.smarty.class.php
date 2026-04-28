@@ -9,6 +9,7 @@
  * @version     $Id$
  * @link        http://www.chanzhi.org
  */
+#[AllowDynamicProperties]
 class smartyParser
 {
     /**

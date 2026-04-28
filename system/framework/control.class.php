@@ -15,6 +15,7 @@
  *
  * @package framework
  */
+#[AllowDynamicProperties]
 class control
 {
     /**

@@ -15,6 +15,7 @@
  *
  * @package framework
  */
+#[AllowDynamicProperties]
 class router
 { 
     /**
@@ -1800,6 +1801,7 @@ class router
  * 
  * @package framework
  */
+#[AllowDynamicProperties]
 class config
 { 
     /**
@@ -1826,6 +1828,7 @@ class config
  * 
  * @package chanzhiEPS
  */
+#[AllowDynamicProperties]
 class language 
 {
     /**
@@ -1866,6 +1869,7 @@ class language
  * 
  * @package chanzhiEPS
  */
+#[AllowDynamicProperties]
 class super
 {
     /**

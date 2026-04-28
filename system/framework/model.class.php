@@ -16,6 +16,7 @@
  * @package framework
  */
 
+#[AllowDynamicProperties]
 class model
 {
     /**

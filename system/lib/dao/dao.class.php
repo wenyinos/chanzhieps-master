@@ -15,6 +15,7 @@
  *
  * @package framework
  */
+#[AllowDynamicProperties]
 class dao
 {
     /* Use these strang strings to avoid conflicting with these keywords in the sql body. */
