@@ -2,7 +2,7 @@
 
 ChanzhiEPS is an open-source CMS/ERP system built with PHP, designed for enterprise portals, content management, e-commerce, and community forums.
 
-**Version:** 5.2 | **License:** ZPL 1.2 | **PHP:** 8.2+
+**Version:** 5.2 | **License:** ZPL 1.2 | **PHP:** >= 8.2
 
 ---
 
@@ -20,7 +20,31 @@ ChanzhiEPS is an open-source CMS/ERP system built with PHP, designed for enterpr
 
 ## Requirements
 
-- PHP 8.2+
+### PHP
+
+- PHP >= 8.2
+
+### Required Extensions
+
+| Extension | Purpose |
+|---|---|
+| `pdo` | Database connectivity |
+| `mbstring` | Multi-byte string handling |
+| `json` | JSON encoding/decoding |
+| `gd` | Image processing |
+
+### Optional Extensions
+
+| Extension | Purpose |
+|---|---|
+| `iconv` | Character encoding conversion |
+| `curl` | HTTP requests and OAuth |
+| `zip` | Theme and plugin import/export |
+| `xml` | XML parsing and sitemap generation |
+| `session` | User session management |
+
+### Other
+
 - MySQL
 - Web server (Nginx or Apache with `mod_rewrite`)
 
@@ -130,6 +154,18 @@ Point your web server document root to `www/`. Ensure URL rewriting is enabled (
 - Access logs are stored in the `eps_statlog` database table.
 - Temporary files are written to `system/tmp/`.
 
+## Third-party Libraries
+
+| Library | Version | Purpose |
+|---|---|---|
+| Smarty | 3.1.47 | Template engine |
+| HTML Purifier | 4.17.0 | HTML filtering and XSS prevention |
+| PHPMailer | 5.x | Email sending |
+| lessc | 0.x | LESS CSS compilation |
+| Snoopy | 1.2.4 | HTTP client |
+| pclzip | 2.x | ZIP archive handling |
+| PHP QR Code | 1.1.4 | QR code generation |
+
 ## License
 
 ChanzhiEPS is licensed under the [Z Public License 1.2](system/doc/LICENSE).
@@ -140,7 +176,7 @@ ChanzhiEPS is licensed under the [Z Public License 1.2](system/doc/LICENSE).
 
 蝉知EPS是一个开源的CMS/ERP系统，基于PHP开发，适用于企业门户、内容管理、电子商务和社区论坛。
 
-**版本：** 5.2 | **协议：** ZPL 1.2 | **PHP：** 8.2+
+**版本：** 5.2 | **协议：** ZPL 1.2 | **PHP：** >= 8.2
 
 ## 功能特性
 
@@ -156,7 +192,31 @@ ChanzhiEPS is licensed under the [Z Public License 1.2](system/doc/LICENSE).
 
 ## 环境要求
 
-- PHP 8.2+
+### PHP
+
+- PHP >= 8.2
+
+### 必需扩展
+
+| 扩展 | 用途 |
+|---|---|
+| `pdo` | 数据库连接 |
+| `mbstring` | 多字节字符串处理 |
+| `json` | JSON编码/解码 |
+| `gd` | 图像处理 |
+
+### 可选扩展
+
+| 扩展 | 用途 |
+|---|---|
+| `iconv` | 字符编码转换 |
+| `curl` | HTTP请求和OAuth |
+| `zip` | 主题和插件导入/导出 |
+| `xml` | XML解析和站点地图生成 |
+| `session` | 用户会话管理 |
+
+### 其他
+
 - MySQL
 - Web服务器（Nginx或启用`mod_rewrite`的Apache）
 
@@ -214,6 +274,18 @@ system/bin/syncext.sh <源目录> <目标目录>
 ### 标准部署
 
 将Web服务器根目录指向 `www/`，确保URL重写已启用（Apache规则见 `www/.htaccess`）。默认请求类型为 `PATH_INFO`，参数分隔符为 `-`。
+
+## 第三方库
+
+| 库 | 版本 | 用途 |
+|---|---|---|
+| Smarty | 3.1.47 | 模板引擎 |
+| HTML Purifier | 4.17.0 | HTML过滤和XSS防护 |
+| PHPMailer | 5.x | 邮件发送 |
+| lessc | 0.x | LESS CSS编译 |
+| Snoopy | 1.2.4 | HTTP客户端 |
+| pclzip | 2.x | ZIP压缩处理 |
+| PHP QR Code | 1.1.4 | 二维码生成 |
 
 ## 许可协议
 
