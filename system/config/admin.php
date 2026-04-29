@@ -1,5 +1,6 @@
 <?php
 /* For admin users. */
+if(!isset($config->rights)) $config->rights = new stdclass();
 $config->rights->admin['admin']['index']      = 'index';
 $config->rights->admin['admin']['switchlang'] = 'switchlang';
 

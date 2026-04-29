@@ -9,7 +9,9 @@
  * @version     $Id$
  * @link        http://www.chanzhi.org
  */
-/* Turn off error reporting first. */
+/* Enable error reporting for debugging. */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 /* Start output buffer. */
 ob_start();
