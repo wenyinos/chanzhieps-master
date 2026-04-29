@@ -648,7 +648,7 @@ class fixer
     public function quote($fieldName)
     {
         $fields = $this->processFields($fieldName);
-        foreach($fields as $fieldName) $this->data->$fieldName = filter_var($this->data->$fieldName, FILTER_SANITIZE_MAGIC_QUOTES);
+        foreach($fields as $fieldName) $this->data->$fieldName = addslashes($this->data->$fieldName);
         return $this;
     }
 

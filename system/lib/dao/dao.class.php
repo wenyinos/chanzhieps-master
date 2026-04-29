@@ -580,10 +580,10 @@ class dao
             }
             else
             {
-                if($this->method == 'select')
+                if($method == 'select')
                 {
                     if(isset(dao::$cache[$key])) return dao::$cache[$key];
-                    $result = $this->slaveDBH->query($sql);
+                    $result = $this->dbh->query($sql);
                     dao::$cache[$key] = $result;
                     return $result;
                 }
