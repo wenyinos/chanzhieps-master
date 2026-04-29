@@ -14,7 +14,7 @@
     <?php if(empty($config->site->icpLink) and !empty($config->site->icpSN))  echo $config->site->icpSN;?>
   </div>
   <div class='powerby pull-right' id='powerby'>
-    <?php printf($lang->poweredBy, $config->version, k(), "<object style='position: relative; top: 2px' data='{$templateCommonRoot}img/chanzhi.xml' type='image/svg+xml'>{$lang->chanzhiEPSx}</object> <span class='name hide'>" . $lang->chanzhiEPSx . '</span>' . $config->version); ?>
+    <?php printf($lang->poweredBy, $config->version, k(), "<object style='position: relative; top: 2px' data='{$templateCommonRoot}img/chanzhi.xml' type='image/svg+xml'>{$lang->chanzhiEPSx}</object> <span class='name hide'>" . $lang->chanzhiEPSx . '</span>' . $config->version); ?>&nbsp;|&nbsp;<a href='https://github.com/wenyinos/chanzhieps-master' target='_blank' title='GitHub'>WenYinOS</a>
   </div>
 </div>
 
