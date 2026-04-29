@@ -7,7 +7,7 @@
   <ul class='breadcrumb pull-left' id='positionBar'>
     <li><?php echo html::a(helper::createLink('admin', 'index'), $lang->chanzhiEPSx, "id='positionRoot'")?></li>
   </ul>
-  <div id='powerby'><?php printf($lang->poweredBy, $config->version, k(), "<span class='icon icon-chanzhi'><i class='ic1'></i><i class='ic2'></i><i class='ic3'></i><i class='ic4'></i><i class='ic5'></i><i class='ic6'></i><i class='ic7'></i></span> " . $config->version);?></div>
+  <div id='powerby'><?php printf($lang->poweredBy, $config->version, k(), "<span class='icon icon-chanzhi'><i class='ic1'></i><i class='ic2'></i><i class='ic3'></i><i class='ic4'></i><i class='ic5'></i><i class='ic6'></i><i class='ic7'></i></span> " . $config->version);?>&nbsp;|&nbsp;<a href='https://github.com/wenyinos/chanzhieps-master' target='_blank' title='GitHub'>WenYinOS</a></div>
 </nav>
 
 <?php

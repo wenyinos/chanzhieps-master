@@ -21,7 +21,7 @@
       </span>
       <span id='icpInfo'><?php echo $config->site->icpSN; ?></span>
       <div id='powerby'>
-        <?php printf($lang->poweredBy, $config->version, k(), $config->version); ?>
+        <?php printf($lang->poweredBy, $config->version, k(), $config->version); ?>&nbsp;|&nbsp;<a href='https://github.com/wenyinos/chanzhieps-master' target='_blank' title='GitHub'>WenYinOS</a>
       </div>
     </div>
   </footer>
