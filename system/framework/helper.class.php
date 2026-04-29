@@ -944,7 +944,7 @@ function getWebRoot($full = false)
 
     if($full)
     {
-        $http = (isset($_SERVER['HTTPS']) and strtolower($_SERVER['HTTPS']) != 'off') ? 'https://' : 'http://';
+        $http = isHTTPS() ? 'https://' : 'http://';
         return $http . $_SERVER['HTTP_HOST'] . substr($path, 0, (strrpos($path, '/') + 1));
     }
 
@@ -1140,7 +1140,21 @@ function processArrayEvils($params)
  */
 function getHostURL()
 {
-    return ((isset($_SERVER['HTTPS']) and strtolower($_SERVER['HTTPS']) != 'off') ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+    return (isHTTPS() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+}
+
+/**
+ * Check if current request is HTTPS.
+ *
+ * @access public
+ * @return bool
+ */
+function isHTTPS()
+{
+    if(isset($_SERVER['HTTPS']) and strtolower($_SERVER['HTTPS']) != 'off') return true;
+    if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) and strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') return true;
+    if(isset($_SERVER['HTTP_X_FORWARDED_SSL']) and strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on') return true;
+    return false;
 }
 
 /**

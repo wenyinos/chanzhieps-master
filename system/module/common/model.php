@@ -297,7 +297,7 @@ class commonModel extends model
     {
         if(RUN_MODE == 'install' or RUN_MODE == 'upgrade' or RUN_MODE == 'shell' or RUN_MODE == 'admin' or !$this->config->installed) return true;
 
-        $http       = (isset($_SERVER['HTTPS']) and strtolower($_SERVER['HTTPS']) != 'off') ? 'https://' : 'http://';
+        $http       = isHTTPS() ? 'https://' : 'http://';
         $httpHost   = $this->server->http_host;
         if(strpos($this->server->http_host, ':') !== false) $httpHost = substr($httpHost, 0, strpos($httpHost, ':'));
         $currentURI = $http . $httpHost . $this->server->request_uri;
@@ -716,7 +716,7 @@ class commonModel extends model
     public static function getSysURL()
     {
         global $config;
-        $httpType = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ? 'https' : 'http';
+        $httpType = isHTTPS() ? 'https' : 'http';
         $httpHost = $_SERVER['HTTP_HOST'];
         return "$httpType://$httpHost";
     }
