@@ -305,8 +305,9 @@ class commonModel extends model
         $mainDomain = isset($this->config->site->domain) ? $this->config->site->domain : '';
         $mainDomain = str_replace(array('http://', 'https://'), '', $mainDomain);
 
-        /* Check main domain and scheme. */
+        /* Check main domain and scheme. If current request is already HTTPS, don't redirect to HTTP. */
         $redirectURI = $currentURI;
+        if($scheme == 'http' and isHTTPS()) $scheme = 'https';
         if(strpos($redirectURI, $scheme . '://') !== 0) $redirectURI = $scheme . substr($redirectURI, strpos($redirectURI, '://'));
         if(!empty($mainDomain) and $httpHost != $mainDomain) $redirectURI = str_replace($httpHost, $mainDomain, $redirectURI);
         if($redirectURI != $currentURI) header301($redirectURI);
