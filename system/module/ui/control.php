@@ -466,10 +466,21 @@ class ui extends control
     {
         $this->session->set('device', $device);
 
-        $template = $this->config->template->{$device};
-        if(isset($this->config->template->{$device}) and !is_object($this->config->template->{$device})) $template = json_decode($this->config->template->{$device});
-        $setting['name']  = $template->name;
-        $setting['theme'] = $template->theme;
+        /* Read template settings from config.php file directly. */
+        $configContent = file_get_contents($this->app->getConfigRoot() . 'config.php');
+        if(preg_match('/\$config->template->' . $device . '->name\s*=\s*[\'"](.+?)[\'"]/', $configContent, $nameMatch)
+            && preg_match('/\$config->template->' . $device . '->theme\s*=\s*[\'"](.+?)[\'"]/', $configContent, $themeMatch))
+        {
+            $setting['name']  = $nameMatch[1];
+            $setting['theme'] = $themeMatch[1];
+        }
+        else
+        {
+            $template = $this->config->template->{$device};
+            if(isset($this->config->template->{$device}) and !is_object($this->config->template->{$device})) $template = json_decode($this->config->template->{$device});
+            $setting['name']  = $template->name;
+            $setting['theme'] = $template->theme;
+        }
         $setting = helper::jsonEncode($setting);
         $result = $this->loadModel('setting')->setItems('system.common.template', array($device => $setting));
         $this->locate($this->server->http_referer);
