@@ -1,6 +1,6 @@
 <?php if(!defined("RUN_MODE")) die();?>
 <?php
-$config->ui->systemThemes = array('default.default', 'default.tartan', 'default.wide', 'default.clean', 'default.blank', 'mobile.default', 'mobile.colorful', 'mobile.blank');
+$config->ui->systemThemes = array('default.tartan', 'default.wide');
 
 $config->ui->themeSnapRoot = 'http://www.chanzhi.org/data/upload/';
 
@@ -128,6 +128,35 @@ $config->ui->selectorOptions['footer']['border']['color']  = array('type' => 'co
 $config->ui->selectorOptions['footer']['background'] = array();
 $config->ui->selectorOptions['footer']['background']['backcolor'] = array('type' => 'color', 'default' => '#f7f7f7', 'name' => 'footer-backcolor');
 
+/* Tartan theme setting */
+$config->ui->themes['default']['tartan'] = $config->ui->selectorOptions;
+unset($config->ui->themes['default']['tartan']['basic']['aVisited']);
+unset($config->ui->themes['default']['tartan']['basic']['border']);
+unset($config->ui->themes['default']['tartan']['basic']['colorset']);
+unset($config->ui->themes['default']['tartan']['navbar']);
+unset($config->ui->themes['default']['tartan']['button']);
+unset($config->ui->themes['default']['tartan']['block']);
+$config->ui->themes['default']['tartan']['basic']['pageBackground']['backgroundImage']['default'] = 'inherit';
+$config->ui->themes['default']['tartan']['basic']['pageBackground']['backcolor']['default'] = '#5F7A64';
+$config->ui->themes['default']['tartan']['basic']['pageText']['color']['default'] = '#6F6658';
+$config->ui->themes['default']['tartan']['basic']['aLink']['color']['default'] = '#254952';
+$config->ui->themes['default']['tartan']['basic']['aHover']['color']['default'] = '#35636E';
+$config->ui->themes['default']['tartan']['footer']['border']['border']['default'] = 'none';
+$config->ui->themes['default']['tartan']['footer']['background']['backcolor']['default'] = '#F5F0CC';
+
+/* Wide theme setting */
+$config->ui->themes['default']['wide'] = $config->ui->selectorOptions;
+unset($config->ui->themes['default']['wide']['basic']['pageBackground']);
+unset($config->ui->themes['default']['wide']['basic']['border']);
+unset($config->ui->themes['default']['wide']['basic']['aLink']);
+unset($config->ui->themes['default']['wide']['basic']['aVisited']);
+unset($config->ui->themes['default']['wide']['basic']['aHover']);
+unset($config->ui->themes['default']['wide']['navbar']);
+unset($config->ui->themes['default']['wide']['button']);
+unset($config->ui->themes['default']['wide']['block']);
+unset($config->ui->themes['default']['wide']['footer']);
+$config->ui->themes['default']['wide']['basic']['colorset']['primary']['default'] = '#E91B23';
+
 /* Default theme setting */
 $config->ui->themes['default']['default'] = $config->ui->selectorOptions;
 unset($config->ui->themes['default']['default']['basic']['border']);
@@ -170,22 +199,6 @@ $config->ui->themes['default']['flat']['basic']['aHover']['color']['default'] = 
 $config->ui->themes['default']['flat']['footer']['border']['border']['default'] = 'none';
 $config->ui->themes['default']['flat']['footer']['background']['backcolor']['default'] = '#EDEFF1';
 
-/* Tartan theme setting */
-$config->ui->themes['default']['tartan'] = $config->ui->selectorOptions;
-unset($config->ui->themes['default']['tartan']['basic']['aVisited']);
-unset($config->ui->themes['default']['tartan']['basic']['border']);
-unset($config->ui->themes['default']['tartan']['basic']['colorset']);
-unset($config->ui->themes['default']['tartan']['navbar']);
-unset($config->ui->themes['default']['tartan']['button']);
-unset($config->ui->themes['default']['tartan']['block']);
-$config->ui->themes['default']['tartan']['basic']['pageBackground']['backgroundImage']['default'] = 'inherit';
-$config->ui->themes['default']['tartan']['basic']['pageBackground']['backcolor']['default'] = '#5F7A64';
-$config->ui->themes['default']['tartan']['basic']['pageText']['color']['default'] = '#6F6658';
-$config->ui->themes['default']['tartan']['basic']['aLink']['color']['default'] = '#254952';
-$config->ui->themes['default']['tartan']['basic']['aHover']['color']['default'] = '#35636E';
-$config->ui->themes['default']['tartan']['footer']['border']['border']['default'] = 'none';
-$config->ui->themes['default']['tartan']['footer']['background']['backcolor']['default'] = '#F5F0CC';
-
 /* Clean theme setting */
 $config->ui->themes['default']['clean'] = $config->ui->selectorOptions;
 unset($config->ui->themes['default']['clean']['basic']['pageBackground']['backcolor']);
@@ -218,19 +231,6 @@ $config->ui->themes['default']['tree']['basic']['aLink']['color']['default'] = '
 $config->ui->themes['default']['tree']['basic']['aHover']['color']['default'] = '#6E2E16';
 $config->ui->themes['default']['tree']['footer']['border']['border']['default'] = 'none';
 $config->ui->themes['default']['tree']['footer']['background']['backcolor']['default'] = '#F5F0CC';
-
-/* Wide theme setting */
-$config->ui->themes['default']['wide'] = $config->ui->selectorOptions;
-unset($config->ui->themes['default']['wide']['basic']['pageBackground']);
-unset($config->ui->themes['default']['wide']['basic']['border']);
-unset($config->ui->themes['default']['wide']['basic']['aLink']);
-unset($config->ui->themes['default']['wide']['basic']['aVisited']);
-unset($config->ui->themes['default']['wide']['basic']['aHover']);
-unset($config->ui->themes['default']['wide']['navbar']);
-unset($config->ui->themes['default']['wide']['button']);
-unset($config->ui->themes['default']['wide']['block']);
-unset($config->ui->themes['default']['wide']['footer']);
-$config->ui->themes['default']['wide']['basic']['colorset']['primary']['default'] = '#E91B23';
 
 /* Colorful theme setting */
 $config->ui->themes['default']['colorful'] = $config->ui->selectorOptions;
