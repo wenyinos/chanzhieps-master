@@ -87,7 +87,7 @@ class helper
         if(helper::inSeoMode() and method_exists('uri', 'create' . $moduleName . $methodName))
         {
             if($config->requestType == 'PATH_INFO2') $config->webRoot = $_SERVER['SCRIPT_NAME'] . '/';
-            $link = call_user_func_array('uri::create' . $moduleName . $methodName, array('param'=> $vars, 'alias'=>$alias, 'viewType'=>$viewType));
+            $link = call_user_func_array('uri::create' . $moduleName . $methodName, array($vars, $alias, $viewType));
 
             /* Add client lang. */
             if($lang and $link) $link = $config->webRoot .  $lang . '/' . substr($link, strlen($config->webRoot));

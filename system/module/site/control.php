@@ -193,7 +193,7 @@ class site extends control
         {
             $locations = $location;
             $location  = join(' ', $locations);
-            if(count($location) > 3) $location = $locations[0] . ' ' . $locations[1] . ' ' . $locations[2];
+            if(count($locations) > 3) $location = $locations[0] . ' ' . $locations[1] . ' ' . $locations[2];
         }
 
         $this->view->title    = $this->lang->site->setSecurity;

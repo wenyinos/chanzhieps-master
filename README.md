@@ -2,7 +2,7 @@
 
 ChanzhiEPS is an open-source CMS/ERP system built with PHP, designed for enterprise portals, content management, e-commerce, and community forums.
 
-**Version:** 5.2 | **License:** ZPL 1.2 | **PHP:** >= 8.2
+**Version:** 5.2_php8 | **License:** ZPL 1.2 | **PHP:** 8.0 ~ 8.5
 
 ---
 
@@ -22,7 +22,7 @@ ChanzhiEPS is an open-source CMS/ERP system built with PHP, designed for enterpr
 
 ### PHP
 
-- PHP >= 8.2
+- PHP 8.0 ~ 8.5
 
 ### Required Extensions
 
@@ -149,10 +149,25 @@ Point your web server document root to `www/`. Ensure URL rewriting is enabled (
 
 ## Debugging
 
+- Set `$config->debug = true;` in `system/config/my.php` to enable PHP error reporting and logging.
+- Set `$config->debug = 2;` to display warnings/notices directly on page (development only).
+- Error logs are written to `system/tmp/log/php.YYYYMMDD.php`.
+- SQL logs are written to `system/tmp/log/sql.YYYYMMDD.php` (when debug is on).
 - Set `DEBUG=1` in `run.sh` to enable bash debug tracing.
-- PHP errors are suppressed in production (`error_reporting(0)`). Remove this in `www/index.php` during development.
-- Access logs are stored in the `eps_statlog` database table.
-- Temporary files are written to `system/tmp/`.
+
+## URL Rewriting
+
+### Apache
+
+The `www/.htaccess` file contains the rewrite rules. Ensure `mod_rewrite` is enabled and `AllowOverride All` is set for the `www/` directory.
+
+### Nginx
+
+```nginx
+location / {
+    try_files $uri $uri/ /index.php/$uri;
+}
+```
 
 ## Third-party Libraries
 
@@ -176,7 +191,7 @@ ChanzhiEPS is licensed under the [Z Public License 1.2](system/doc/LICENSE).
 
 蝉知EPS是一个开源的CMS/ERP系统，基于PHP开发，适用于企业门户、内容管理、电子商务和社区论坛。
 
-**版本：** 5.2 | **协议：** ZPL 1.2 | **PHP：** >= 8.2
+**版本：** 5.2_php8 | **协议：** ZPL 1.2 | **PHP：** 8.0 ~ 8.5
 
 ## 功能特性
 
@@ -194,7 +209,7 @@ ChanzhiEPS is licensed under the [Z Public License 1.2](system/doc/LICENSE).
 
 ### PHP
 
-- PHP >= 8.2
+- PHP 8.0 ~ 8.5
 
 ### 必需扩展
 
@@ -274,6 +289,28 @@ system/bin/syncext.sh <源目录> <目标目录>
 ### 标准部署
 
 将Web服务器根目录指向 `www/`，确保URL重写已启用（Apache规则见 `www/.htaccess`）。默认请求类型为 `PATH_INFO`，参数分隔符为 `-`。
+
+## 调试
+
+- 在 `system/config/my.php` 中设置 `$config->debug = true;` 开启PHP错误报告和日志记录
+- 设置 `$config->debug = 2;` 可在页面上直接显示警告和通知（仅限开发环境）
+- 错误日志记录在 `system/tmp/log/php.YYYYMMDD.php`
+- SQL日志记录在 `system/tmp/log/sql.YYYYMMDD.php`（debug开启时）
+- 在 `run.sh` 中设置 `DEBUG=1` 开启bash调试
+
+## 伪静态配置
+
+### Apache
+
+`www/.htaccess` 已包含重写规则，确保已启用 `mod_rewrite` 并设置 `AllowOverride All`。
+
+### Nginx
+
+```nginx
+location / {
+    try_files $uri $uri/ /index.php/$uri;
+}
+```
 
 ## 第三方库
 

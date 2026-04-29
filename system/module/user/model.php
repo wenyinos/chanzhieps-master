@@ -1172,7 +1172,7 @@ class userModel extends model
         {
             $locations = $location;
             $location  = join(' ', $locations);
-            if(count($location) > 3) $location = $locations[0] . ' ' . $locations[1] . ' ' . $locations[2];
+            if(count($locations) > 3) $location = $locations[0] . ' ' . $locations[1] . ' ' . $locations[2];
         }
         return $allowedLocation == $location;
     }
@@ -1192,7 +1192,7 @@ class userModel extends model
         {
             $locations = $location;
             $location  = join(' ', $locations);
-            if(count($location) > 3) $location = $locations[0] . ' ' . $locations[1] . ' ' . $locations[2];
+            if(count($locations) > 3) $location = $locations[0] . ' ' . $locations[1] . ' ' . $locations[2];
         }
 
         $lastLocation = $this->dao->select('location')->from(TABLE_LOG)
