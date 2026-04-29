@@ -174,6 +174,25 @@ location / {
 }
 ```
 
+## PHP 8.x Compatibility Fixes
+
+The following fixes were applied to support PHP 8.0 ~ 8.5:
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `system/lib/ip/ip.class.php:64` | Curly brace string offset `$string{0}` removed in PHP 8 | Changed to `$string[0]` |
+| `system/lib/filter/filter.class.php:651` | `FILTER_SANITIZE_MAGIC_QUOTES` removed in PHP 8.1 | Changed to `addslashes()` |
+| `system/lib/dao/dao.class.php:583` | `$this->method` was reset before use; `$this->slaveDBH` called when false | Fixed to use `$method` and `$this->dbh` |
+| `system/framework/helper.class.php:90` | `call_user_func_array` with named params (`'param'` vs `'params'`) | Changed to positional arguments |
+| `system/framework/helper.class.php:1152` | HTTPS detection missing proxy headers | Added `isHTTPS()` with `X-Forwarded-Proto` support |
+| `system/config/admin.php:3` | `$config->rights` not initialized | Added `if(!isset($config->rights))` check |
+| `system/module/setting/model.php:181` | `$config[$record->owner]` not initialized | Added `stdclass()` initialization |
+| `system/module/site/control.php:196` | `count()` on string after `join()` | Changed to `count($locations)` |
+| `system/module/user/model.php:1175,1195` | Same `count()` on string bug | Changed to `count($locations)` |
+| `system/module/common/model.php:300,310` | HTTPS redirect loop when scheme mismatch | Auto-upgrade scheme if request is HTTPS |
+| `system/lib/smarty/sysplugins/*.php` | Implicit nullable params deprecated in PHP 8.4 | Added `?` prefix to typed params |
+| `system/lib/mobile/mobile.class.php:646` | Implicit nullable `array` param | Changed to `?array` |
+
 ## Third-party Libraries
 
 | Library | Version | Purpose |
@@ -321,6 +340,25 @@ location / {
     }
 }
 ```
+
+## PHP 8.x 兼容性修复
+
+以下修复已应用以支持 PHP 8.0 ~ 8.5：
+
+| 文件 | 问题 | 修复方式 |
+|------|------|----------|
+| `system/lib/ip/ip.class.php:64` | 花括号字符串偏移 `$string{0}` 在 PHP 8 中移除 | 改为 `$string[0]` |
+| `system/lib/filter/filter.class.php:651` | `FILTER_SANITIZE_MAGIC_QUOTES` 常量在 PHP 8.1 中移除 | 改为 `addslashes()` |
+| `system/lib/dao/dao.class.php:583` | `$this->method` 已被 reset；`$this->slaveDBH` 为 false 时误调用 | 改用 `$method` 和 `$this->dbh` |
+| `system/framework/helper.class.php:90` | `call_user_func_array` 命名参数不匹配（`'param'` vs `'params'`） | 改为位置参数 |
+| `system/framework/helper.class.php:1152` | HTTPS 检测不支持反向代理头 | 新增 `isHTTPS()` 函数，支持 `X-Forwarded-Proto` |
+| `system/config/admin.php:3` | `$config->rights` 未初始化 | 添加 `if(!isset(...))` 检查 |
+| `system/module/setting/model.php:181` | `$config[$record->owner]` 未初始化 | 添加 `stdclass()` 初始化 |
+| `system/module/site/control.php:196` | `join()` 后对字符串使用 `count()` | 改为 `count($locations)` |
+| `system/module/user/model.php:1175,1195` | 同上 `count()` 字符串 bug | 改为 `count($locations)` |
+| `system/module/common/model.php:300,310` | scheme 不匹配导致 HTTPS 重定向循环 | 请求为 HTTPS 时自动升级 scheme |
+| `system/lib/smarty/sysplugins/*.php` | PHP 8.4 弃用隐式 nullable 参数 | 添加 `?` 前缀 |
+| `system/lib/mobile/mobile.class.php:646` | 隐式 nullable `array` 参数 | 改为 `?array` |
 
 ## 第三方库
 
