@@ -163,7 +163,8 @@ The `www/.htaccess` file contains the rewrite rules. Ensure `mod_rewrite` is ena
 
 ### Nginx
 
-```location / {
+```
+location / {
     try_files $uri $uri/ /index.php?$query_string;
     
     # 或者使用 PATH_INFO 模式
@@ -310,9 +311,14 @@ system/bin/syncext.sh <源目录> <目标目录>
 
 ### Nginx
 
-```nginx
+```
 location / {
-    try_files $uri $uri/ /index.php/$uri;
+    try_files $uri $uri/ /index.php?$query_string;
+    
+    # 或者使用 PATH_INFO 模式
+    if (!-e $request_filename) {
+        rewrite ^/(.*)$ /index.php/$1 last;
+    }
 }
 ```
 
