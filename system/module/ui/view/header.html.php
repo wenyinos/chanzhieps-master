@@ -10,6 +10,15 @@
     $moduleMenu = commonModel::createModuleMenu($moduleName, '', false);
   ?>
   <?php if($moduleMenu) echo $moduleMenu;?>
+  <div class="pull-left" style='margin-left: 20px;'>
+    <ul class='nav'>
+      <?php foreach($lang->ui->deviceList as $device => $label):?>
+      <li <?php if($currentDevice == $device) echo "class='active'";?>>
+        <?php echo html::a(helper::createLink('ui', 'setDevice', "device=$device"), $label);?>
+      </li>
+      <?php endforeach;?>
+    </ul>
+  </div>
   <div class="pull-right">
     <ul class="nav">
       <li><?php echo html::a(helper::createLink('visual', 'index'), '<i class="icon-magic"></i> ' . $lang->visualEdit, "target='_blank' class='navbar-link'");?></li>

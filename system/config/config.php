@@ -56,7 +56,7 @@ $config->template->parser         = 'default';   // Default parser.
 $config->template->customVersion  = '';
 $config->template->mobile = new stdclass();
 $config->template->mobile->name  = 'mobile';   // Supported themes.
-$config->template->mobile->theme = 'default';   // Supported themes.
+$config->template->mobile->theme = 'colorful';   // Supported themes.
 
 $config->layout = new stdclass();
 $config->layout->default_default = 0;
