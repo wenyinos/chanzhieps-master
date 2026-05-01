@@ -1465,12 +1465,48 @@ class sql
         }
         else
         {
-            $condition = $arg1;
+            /* Sanitize single argument condition to prevent SQL injection */
+            $condition = $this->sanitizeCondition($arg1);
         }
 
         if(!$this->inMark) $this->sql .= ' ' . DAO::WHERE ." $condition ";
         if($this->inMark) $this->sql .= " $condition ";
         return $this;
+    }
+
+    /**
+     * Sanitize SQL condition to prevent injection.
+     * 
+     * @param string $condition 
+     * @access private
+     * @return string
+     */
+    private function sanitizeCondition($condition)
+    {
+        /* If condition contains parameter placeholders, allow it */
+        if(strpos($condition, ':') !== false || strpos($condition, '?') !== false)
+        {
+            return $condition;
+        }
+        
+        /* If condition looks like a simple field comparison, sanitize it */
+        if(preg_match('/^`?(\w+)`?\s*(=|!=|<>|>|<|>=|<=|LIKE|IN|NOT IN)\s*(.+)$/i', $condition, $matches))
+        {
+            $field = $matches[1];
+            $operator = strtoupper($matches[2]);
+            $value = $matches[3];
+            
+            /* If value is not a placeholder or function, quote it */
+            if(!preg_match('/^[:?]/', $value) && !preg_match('/\w+\s*\(/', $value))
+            {
+                $value = $this->quote(trim($value, "'\""));
+            }
+            
+            return "`$field` $operator $value";
+        }
+        
+        /* For complex conditions, return as-is (developer must ensure safety) */
+        return $condition;
     } 
 
     /**

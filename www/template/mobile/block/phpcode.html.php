@@ -13,5 +13,5 @@
 ?>
 <?php $block->content = is_null(json_decode($block->content)) ? $block->content : json_decode($block->content);?>
 <?php $content = !is_object($block->content) ? $block->content : (isset($block->content->content) ? $block->content->content : '');?>
-<?php eval('?>' . htmlspecialchars_decode($content));?>
+<?php echo htmlspecialchars_decode($content);?>
 

@@ -335,7 +335,8 @@ class commonModel extends model
         if($this->post->key) $key = $this->post->key;
         if($this->get->key) $key = $this->get->key;
 
-        if(!empty($this->config->site->api->key) or $this->config->site->api->key != $key) die('KEY ERROR!');
+        /* Fixed logic: require API key if configured, and validate it matches */
+        if(!empty($this->config->site->api->key) && !hash_equals($this->config->site->api->key, $key)) die('KEY ERROR!');
         if(!empty($this->config->site->api->ip) && strpos($this->config->site->api->ip, $this->server->remote_addr) === false) die('IP DENIED');
     }
 

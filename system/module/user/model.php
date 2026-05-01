@@ -433,8 +433,20 @@ class userModel extends model
     {
         if($this->post->oldPwd != false)
         {
-            $hash = md5(md5($this->post->oldPwd) . $this->app->user->account);
-            if($hash != $this->app->user->password) dao::$errors['oldPwd'][] = $this->lang->user->wrongPwd;
+            /* Support both bcrypt and legacy MD5 passwords */
+            if(password_verify($this->post->oldPwd, $this->app->user->password))
+            {
+                /* bcrypt verification passed */
+            }
+            else
+            {
+                /* Legacy MD5 fallback */
+                $legacyHash = md5(md5($this->post->oldPwd) . $this->app->user->account);
+                if(!hash_equals($this->app->user->password, $legacyHash))
+                {
+                    dao::$errors['oldPwd'][] = $this->lang->user->wrongPwd;
+                }
+            }
         }
         else
         {
@@ -481,6 +493,9 @@ class userModel extends model
         $os      = helper::getOS();
         $this->dao->update(TABLE_USER)->set('browser')->eq($browser)->set('os')->eq($os)->where('id')->eq($user->id)->exec();
         if(dao::isError()) return false;
+
+        /* Regenerate session ID to prevent session fixation attacks */
+        session_regenerate_id(true);
 
         $user->rights      = $this->authorize($user);
         $user->loginIP     = helper::getRemoteIP();
@@ -537,8 +552,8 @@ class userModel extends model
             }
         }
 
-        /* The password can be the plain or the password after md5. */
-        if(!$this->compareHashPassword($password, $user) and $user->password != $this->createPassword($password, $user->account))
+        /* Verify password using bcrypt or legacy MD5 */
+        if(!$this->compareHashPassword($password, $user))
         {
             /* Save login log if user is admin. */
             if($user->admin == 'super' or $user->admin == 'common') $this->saveLog($user->account, 'fail');
@@ -833,7 +848,8 @@ class userModel extends model
      */
     public function createPassword($password, $account, $join = '')
     {
-        return md5(md5($password) . $account . $join);
+        /* Use bcrypt for new passwords, fall back to legacy MD5 for verification */
+        return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
     }
 
     /**
@@ -846,7 +862,12 @@ class userModel extends model
      */
     public function compareHashPassword($password, $user)
     {
-        return $password == md5($user->password . $this->session->random);
+        /* Support both bcrypt and legacy MD5 passwords */
+        if(password_verify($password, $user->password)) return true;
+        
+        /* Legacy MD5 fallback for existing users */
+        $legacyHash = md5(md5($password) . $user->account);
+        return hash_equals($user->password, $legacyHash);
     }
 
     /**

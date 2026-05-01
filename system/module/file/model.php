@@ -377,6 +377,14 @@ class fileModel extends model
             {
                 if(empty($fileName)) continue;
                 if(!validater::checkFileName($fileName)) continue;
+                
+                /* Validate file size */
+                if($size[$id] > $this->config->file->maxSize) continue;
+                
+                /* Validate MIME type */
+                $mimeType = helper::getFileMimeType($tmp_name[$id]);
+                if($mimeType === false || !$this->isAllowedMimeType($mimeType, $fileName)) continue;
+                
                 $file['id']        = $id;
                 $file['extension'] = $this->getExtension($fileName);
                 $file['title']     = !empty($_POST['labels'][$id]) ? htmlspecialchars($_POST['labels'][$id]) : str_replace('.' . $file['extension'], '', $fileName);
@@ -391,7 +399,15 @@ class fileModel extends model
         {
             if(empty($_FILES[$htmlTagName]['name'])) return array();
             extract($_FILES[$htmlTagName]);
-            if(!validater::checkFileName($name)) return array();;
+            if(!validater::checkFileName($name)) return array();
+            
+            /* Validate file size */
+            if($size > $this->config->file->maxSize) return array();
+            
+            /* Validate MIME type */
+            $mimeType = helper::getFileMimeType($tmp_name);
+            if($mimeType === false || !$this->isAllowedMimeType($mimeType, $name)) return array();
+            
             $file['id']        = 0;
             $file['extension'] = $this->getExtension($name);
             $file['title']     = !empty($_POST['labels'][0]) ? htmlspecialchars($_POST['labels'][0]) : substr($name, 0, strpos($name, $file['extension']) - 1);
@@ -416,6 +432,52 @@ class fileModel extends model
         $extension = strtolower(trim(pathinfo($fileName, PATHINFO_EXTENSION)));
         if(empty($extension) or !preg_match('/^[a-z0-9]+$/', $extension) or strlen($extension) > 5) return 'txt';
         return $extension;
+    }
+
+    /**
+     * Check if MIME type is allowed for the file extension.
+     * 
+     * @param string $mimeType 
+     * @param string $fileName 
+     * @access public
+     * @return bool
+     */
+    public function isAllowedMimeType($mimeType, $fileName)
+    {
+        $extension = $this->getExtension($fileName);
+        
+        /* Define allowed MIME types for common extensions */
+        $allowedMimes = array(
+            'jpg'  => array('image/jpeg'),
+            'jpeg' => array('image/jpeg'),
+            'png'  => array('image/png'),
+            'gif'  => array('image/gif'),
+            'bmp'  => array('image/bmp'),
+            'pdf'  => array('application/pdf'),
+            'doc'  => array('application/msword'),
+            'docx' => array('application/vnd.openxmlformats-officedocument.wordprocessingml.document'),
+            'xls'  => array('application/vnd.ms-excel'),
+            'xlsx' => array('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+            'ppt'  => array('application/vnd.ms-powerpoint'),
+            'pptx' => array('application/vnd.openxmlformats-officedocument.presentationml.presentation'),
+            'zip'  => array('application/zip', 'application/x-zip-compressed'),
+            'rar'  => array('application/x-rar-compressed', 'application/vnd.rar'),
+            'txt'  => array('text/plain'),
+            'csv'  => array('text/csv'),
+            'mp3'  => array('audio/mpeg'),
+            'mp4'  => array('video/mp4'),
+            'avi'  => array('video/x-msvideo'),
+            'mov'  => array('video/quicktime'),
+        );
+        
+        /* If extension not in our list, allow based on general MIME type */
+        if(!isset($allowedMimes[$extension]))
+        {
+            /* Allow text and image types for unknown extensions */
+            return strpos($mimeType, 'text/') === 0 || strpos($mimeType, 'image/') === 0;
+        }
+        
+        return in_array($mimeType, $allowedMimes[$extension]);
     }
 
     /**
