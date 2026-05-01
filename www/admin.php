@@ -9,11 +9,18 @@
  * @version     $Id$
  * @link        http://www.chanzhi.org
  */
-/* Disable error display in production for security. */
-error_reporting(0);
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/../system/tmp/php_errors.log');
+/* Enable error reporting for debugging. */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+/* Flush output buffer on fatal error so error messages are visible. */
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        while (ob_get_level()) ob_end_flush();
+        echo '<pre>FATAL: ' . htmlspecialchars($error['message']) . ' in ' . $error['file'] . ':' . $error['line'] . '</pre>';
+    }
+});
 
 /* Start output buffer. */
 ob_start();
