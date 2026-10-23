@@ -1360,36 +1360,4 @@ class packageModel extends model
      * @access public
      * @return void
      */
-    public function getThemesByApi($type, $param, $recTotal, $recPerPage, $pageID)
-    {
-        $apiURL = $this->apiRoot . "apiGetThemes-$type-$param-$recTotal-$recPerPage-$pageID.json";
-        $data   = $this->fetchAPI($apiURL);
-        if(isset($data->themes))
-        {
-            foreach($data->themes as $package)
-            {
-                $package->currentRelease = isset($package->compatibleRelease) ? $package->compatibleRelease : $package->latestRelease;
-                $package->currentRelease->compatible = isset($package->currentRelease);
-            }
-            return $data;
-        }
-        return false;
-    }
-
-    /**
-     * Get package modules from the api.
-     * 
-     * @access public
-     * @return string|bool
-     */
-    public function getIndustriesByAPI()
-    {
-        $requestType = helper::safe64Encode($this->config->requestType);
-        $webRoot     = helper::safe64Encode($this->config->webRoot);
-        $apiURL      = $this->apiRoot . 'apiGetindustries-' . $requestType . '-' . $webRoot . '.json';
-
-        $data = $this->fetchAPI($apiURL);
-        if(isset($data->industries)) return $data->industries;
-        return false;
-    }
 }

@@ -19,7 +19,7 @@ if(!function_exists('getWebRoot')){function getWebRoot(){}}
 
 /* The basic settings. */
 $config = new config();
-$config->version     = '5.2.1';              // The version number, don't change.
+$config->version     = '5.2.2';              // The version number, don't change.
 $config->encoding    = 'UTF-8';           // The encoding.
 $config->cookiePath  = '/';               // The path of cookies.
 $config->webRoot     = getWebRoot();      // The web root.
@@ -68,6 +68,7 @@ $config->layout->default_tartan  = 0;
 $config->layout->default_wide    = 0;
 $config->layout->default_clean   = 0;
 $config->layout->default_blank   = 0;
+$config->layout->wenyinos_wenyinos = 0;
 $config->layout->mobile_default  = 0;
 $config->layout->mobile_colorful = 0;
 

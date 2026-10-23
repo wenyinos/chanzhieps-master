@@ -38,14 +38,10 @@ $lang->ui->importedBlocks  = '导入区块';
 $lang->ui->matchedBlock    = '对应区块';
 $lang->ui->createBlock     = '导入新区块';
 $lang->ui->useOldBlock     = '使用已有区块';
-$lang->ui->themeStore      = '主题市场';
 $lang->ui->help            = "帮助";
 $lang->ui->deleteLogo      = "删除Logo";
 $lang->ui->setCode         = "代码";
-$lang->ui->installedThemes = "已安装主题";
 $lang->ui->enableTheme     = "使用此主题";
-$lang->ui->industry        = "行业";
-$lang->ui->offcial         = "官方";
 
 $lang->ui->uploadLogo             = "上传Logo";
 $lang->ui->uploadFavicon          = "上传小图标";
@@ -125,7 +121,6 @@ $lang->ui->blocks2Create = "新创建区块";
 
 $lang->ui->theme = new stdclass();
 $lang->ui->theme->reset                                = '重置为默认';
-$lang->ui->theme->online                               = '在线主题';
 $lang->ui->theme->default                              = '默认';
 $lang->ui->theme->resetTip                             = '参数已重置，保存后生效';
 $lang->ui->theme->sizeTip                              = '默认单位为像素，如1px';
@@ -188,13 +183,6 @@ $lang->ui->theme->sidebarWidthList["50%"]              = "1/2";
 
 $lang->ui->theme->underlineList['none']                = '无';
 $lang->ui->theme->underlineList['underline']           = '带下划线';
-
-$lang->ui->theme->searchLabels = new stdclass();
-$lang->ui->theme->searchLabels->sales  = '购买最多';
-$lang->ui->theme->searchLabels->latest = '最新';
-$lang->ui->theme->searchLabels->hot    = '最热';
-$lang->ui->theme->searchLabels->rand   = '推荐';
-$lang->ui->theme->searchLabels->free   = '免费';
 
 $lang->ui->groups = new stdclass();
 $lang->ui->groups->basic  = '基本样式';

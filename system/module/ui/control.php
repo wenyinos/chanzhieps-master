@@ -25,7 +25,7 @@ class ui extends control
     {
         $templates = $this->ui->getTemplates();
 
-        if($template and isset($templates[$template]))
+        if($template and $theme and isset($templates[$template]))
         {
             $setting = array();
             $setting[$this->device]['name']  = $template;
@@ -43,10 +43,16 @@ class ui extends control
             $this->send(array('result' => 'fail', 'message' => $this->lang->fail));
         }
 
-        $this->view->title           = $this->lang->ui->template->theme;
-        $this->view->template        = current($templates);
-        $this->view->installedThemes = $this->ui->getInstalledThemes();
-        $this->view->currentTheme    = $this->config->template->{$this->device}->theme;
+        $currentTemplate  = $this->config->template->{$this->device}->name;
+        $selectedTemplate = $this->get->template && isset($templates[$this->get->template]) ? $this->get->template : $currentTemplate;
+
+        $this->view->title            = $this->lang->ui->template->theme;
+        $this->view->templates        = $templates;
+        $this->view->template         = isset($templates[$selectedTemplate]) ? $templates[$selectedTemplate] : current($templates);
+        $this->view->selectedTemplate = $selectedTemplate;
+        $this->view->currentTemplate  = $currentTemplate;
+        $this->view->installedThemes  = $this->ui->getInstalledThemes();
+        $this->view->currentTheme     = $this->config->template->{$this->device}->theme;
         $this->view->uiHeader        = true;
         $this->display();
     }
@@ -500,58 +506,6 @@ class ui extends control
         $result = $this->ui->removeTemplateFiles($template);
         if($result !== true) $this->send(array('result' => 'fail', 'message' => sprintf($this->lang->ui->removeDirFaild, join('<br/>', $result))) );
         $this->send(array('result' => 'success', 'message' => $this->lang->setSuccess));
-    }
-
-    /**
-     * Theme store page.
-     * 
-     * @param  string $industry 
-     * @param  string $color 
-     * @param  int    $recTotal 
-     * @param  int    $recPerPage 
-     * @param  int    $pageID 
-     * @access public
-     * @return void
-     */
-    public function themeStore($type = 'byindustry', $param = 'all', $recTotal = 0, $recPerPage = 10, $pageID = 1)
-    {
-        $this->loadModel('package');
-        $pager = null;
-    
-        $installedThemes = $this->ui->getInstalledThemes();
-        
-        $codes = array();
-        if($type == 'installed')
-        {
-            foreach($installedThemes as $template => $themes)
-            {
-                $codes = $codes + array_keys($themes);
-            }
-
-            $param = join(',', $codes);
-        }
-
-        /* Get results from the api. */
-        $results = $this->loadModel('package')->getThemesByApi($type, $param, $recTotal, $recPerPage, $pageID);
-        if($results)
-        {
-            $this->app->loadClass('pager', $static = true);
-            $pager  = new pager($results->dbPager->recTotal, $results->dbPager->recPerPage, $results->dbPager->pageID);
-        }
-
-        if($this->session->currentGroup != 'design') $this->lang->menuGroups->ui = 'themestore';
-        if($this->session->currentGroup == 'design') $this->view->uiHeader = true;
-
-        $this->view->themes       = zget($results, 'themes');
-        $this->view->title        = $this->lang->ui->themeStore;
-        $this->view->position[]   = $this->lang->package->obtain;
-
-        $this->view->industryTree = str_replace('/index.php', $this->server->script_name, $this->package->getIndustriesByAPI());
-        $this->view->pager        = $pager;
-        $this->view->tab          = 'obtain';
-        $this->view->type         = $type;
-        $this->view->param        = $param;
-        $this->display();
     }
 
     /**

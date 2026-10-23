@@ -118,6 +118,3 @@ $lang->package->errorConflicts               = '与插件“%s”冲突！';
 $lang->package->errorDepends                 = '以下依赖插件没有安装或版本不正确：<br /><br /> %s';
 $lang->package->errorIncompatible            = '该插件与您的蝉知版本不兼容';
 $lang->package->errorUninstallDepends        = '插件“%s”依赖该插件，不能卸载';
-
-/* Add theme items.*/
-$lang->theme->common = '主题市场';

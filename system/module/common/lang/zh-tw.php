@@ -195,7 +195,6 @@ $lang->menu->site     = '站點|site|setbasic|';
 $lang->menu->security = '安全|site|setsecurity|';
 
 $lang->menu->package    = '插件|package|browse|';
-$lang->menu->themestore = '主題市場|ui|themestore|';
 
 /* Menu groups setting. */
 $lang->menuGroups = new stdclass();

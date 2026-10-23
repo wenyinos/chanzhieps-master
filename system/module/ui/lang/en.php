@@ -38,14 +38,10 @@ $lang->ui->importedBlocks  = 'Import Blocks';
 $lang->ui->matchedBlock    = 'Matched Blocks';
 $lang->ui->createBlock     = 'Create Block';
 $lang->ui->useOldBlock     = 'Use Old Blocks';
-$lang->ui->themeStore      = 'Theme store';
 $lang->ui->help            = "Help";
 $lang->ui->deleteLogo      = "Delete Logo";
 $lang->ui->setCode         = "Code";
-$lang->ui->installedThemes = "Installed Themes";
 $lang->ui->enableTheme     = "Use this theme";
-$lang->ui->industry        = "Industry";
-$lang->ui->offcial         = "Offcial";
 
 $lang->ui->uploadLogo             = "Upload Logo";
 $lang->ui->uploadFavicon          = "Upload Favicon";
@@ -125,7 +121,6 @@ $lang->ui->blocks2Create = "blocks to created";
 
 $lang->ui->theme = new stdclass();
 $lang->ui->theme->reset                                = 'Reset';
-$lang->ui->theme->online                               = 'Store';
 $lang->ui->theme->default                              = 'Default';
 $lang->ui->theme->resetTip                             = 'Setting changed, take effect after saved.';
 $lang->ui->theme->sizeTip                              = 'The default unit is pixels, such as 1px';
@@ -188,13 +183,6 @@ $lang->ui->theme->sidebarWidthList["50%"]              = "1/2";
 
 $lang->ui->theme->underlineList['none']                = 'None';
 $lang->ui->theme->underlineList['underline']           = 'Underline';
-
-$lang->ui->theme->searchLabels = new stdclass();
-$lang->ui->theme->searchLabels->sales  = 'Most Saled';
-$lang->ui->theme->searchLabels->latest = 'Latest';
-$lang->ui->theme->searchLabels->hot    = 'Hot';
-$lang->ui->theme->searchLabels->rand   = 'Recommend';
-$lang->ui->theme->searchLabels->free   = 'Free';
 
 $lang->ui->groups = new stdclass();
 $lang->ui->groups->basic  = 'Basic Style';

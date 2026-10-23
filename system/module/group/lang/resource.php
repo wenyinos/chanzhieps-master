@@ -45,7 +45,6 @@ $lang->moduelGroups->design[] = 'visual';
 
 $lang->moduelGroups->open = array();
 $lang->moduelGroups->open[] = 'package';
-$lang->moduelGroups->open[] = 'theme';
 
 $lang->moduelGroups->setting = array();
 $lang->moduelGroups->setting[] = 'site';
@@ -178,10 +177,6 @@ $lang->resource->package->upload     = 'upload';
 $lang->resource->package->erase      = 'erase';
 $lang->resource->package->upgrade    = 'upgrade';
 $lang->resource->package->structure  = 'structure';
-
-/* Theme module. */
-$lang->resource->theme = new stdclass();
-$lang->resource->theme->setFilter    = array('module' => 'ui', 'method' => 'themeStore');
 
 /* Product module. */
 $lang->resource->product = new stdclass();

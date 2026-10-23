@@ -14,11 +14,17 @@
 <?php include '../../common/view/header.admin.html.php';?>
 <?php $currentTheme    = $this->config->template->{$this->device}->theme; ?>
 <?php $currentTemplate = $this->config->template->{$this->device}->name; ?>
+<?php if(count($templates) > 1):?>
+<div class='template-switcher clearfix' style='margin-bottom: 16px;'>
+  <?php foreach($templates as $code => $tpl):?>
+  <?php echo html::a($this->createLink('ui', 'setTemplate', "template=$code"), $tpl['name'], "class='btn btn-sm " . ($code == $selectedTemplate ? 'btn-primary' : 'btn-default') . "' style='margin-right: 8px;'");?>
+  <?php endforeach;?>
+</div>
+<?php endif;?>
 <div class='panel' id='mainPanel'>
   <div class='panel-heading'>
     <ul class='nav nav-tabs' id='typeNav'>
       <li data-type='internal' class='active'><?php echo html::a('#internalSection', $lang->ui->internalTheme, "data-toggle='tab'");?></li>
-      <li data-type='store'><?php echo html::a('#storeSection', $lang->ui->themeStore, "data-toggle='tab'");?></li>
     </ul>
   </div>
   <div class='panel-body tab-content'>
@@ -26,11 +32,11 @@
       <?php foreach($template['themes'] as $code => $theme):?>
       <?php $url = $this->createLink('ui', 'setTemplate', "template={$template['code']}&theme={$code}&custom=1");?>
       <?php $templateRoot = $webRoot . 'template/' . $template['code'] . '/';?>
-      <?php $isCurrent =  $currentTheme === $code; ?>
+      <?php $isCurrent = ($currentTemplate === $template['code'] && $currentTheme === $code); ?>
       <div class='col-theme'>
         <div class='card theme <?php if($isCurrent) echo 'current';?>' data-url='<?php echo $url?>'>
           <i class='icon-ok icon'></i>
-          <?php echo html::a($url, html::image($themeRoot . $code . '/preview.png'), "class='media-wrapper theme-img'");?>
+          <?php echo html::a($url, html::image($webRoot . 'theme/' . $template['code'] . '/' . $code . '/preview.png'), "class='media-wrapper theme-img'");?>
           <div class='text-center theme-name text-ellipsis'>
             <?php echo $theme;?>
           </div>
@@ -40,9 +46,6 @@
         </div>
       </div>
       <?php endforeach;?>
-    </section>
-    <section class='tab-pane' id='storeSection'>
-      <div class='text-center text-muted load-icon' style='padding: 50px'><i class='icon icon-2x icon-spinner icon-spin'></i></div>
     </section>
   </div>
 </div>

@@ -1,13 +1,15 @@
-name:Default
-parser:default
-code:default
-author:Chanzhi
-desc:This is the default template of chanzhieps.
-version:4.5.2
-chanzhiVersion:4.5.2
-charge:free
-device:,desktop,
-license:http://www.chanzhi.org/book/chanzhieps/58_license.html
+name: Default
+parser: default
+code: default
+type: template
+author: Chanzhi
+desc: This is the default template of chanzhieps.
+version: 4.5.2
+chanzhiVersion: 4.5.2
+charge: free
+device: ",desktop,"
+license: http://www.chanzhi.org/book/chanzhieps/58_license.html
 themes:
-   tartan:Tartan
-   wide:Wide
+   default: Default
+   tartan: Tartan
+   wide: Wide

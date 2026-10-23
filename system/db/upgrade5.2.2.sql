@@ -1,0 +1,2 @@
+-- Upgrade script for chanzhiEPS 5.2.2.
+-- This release updates templates, themes and documentation; there are no database schema changes.

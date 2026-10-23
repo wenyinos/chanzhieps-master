@@ -54,15 +54,25 @@ class blockModel extends model
     public function getPageBlocks($module, $method)
     {
         $device = helper::getDevice();
-        $template =  $this->config->template->{$device}->name;
+        $template =  $this->config->template->{$device}->name ? $this->config->template->{$device}->name : 'default';
         $theme = $this->config->template->{$device}->theme;
         $plan  = zget($this->config->layout, "{$template}_{$theme}");
         $pages = "all,{$module}_{$method}";
         $rawLayouts = $this->dao->select('*')->from(TABLE_LAYOUT)
             ->where('page')->in($pages)
-            ->andWhere('template')->eq(!empty($this->config->template->{$device}->name) ? $this->config->template->{$device}->name : 'default')
+            ->andWhere('template')->eq($template)
             ->andWhere('plan')->eq($plan)
             ->fetchGroup('page', 'region');
+
+        /* New templates inherit the default layout until they define their own. */
+        if(empty($rawLayouts) and $template != 'default')
+        {
+            $rawLayouts = $this->dao->select('*')->from(TABLE_LAYOUT)
+                ->where('page')->in($pages)
+                ->andWhere('template')->eq('default')
+                ->andWhere('plan')->eq($plan)
+                ->fetchGroup('page', 'region');
+        }
 
         $blocks = $this->dao->select('*')->from(TABLE_BLOCK)->fetchAll('id');
 

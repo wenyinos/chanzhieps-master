@@ -274,6 +274,9 @@ class uiModel extends model
         if(!empty($lessc->errors)) return array('result' => 'fail', 'message' => $lessc->errors);
         file_put_contents($cssFile, $css);
 
+        /* Bump the version so browsers reload the generated theme CSS. */
+        $this->loadModel('setting')->setItem('system.common.template.customVersion', time());
+
         return array('result' => 'success', 'css' => $css);
     }
 

@@ -5,7 +5,7 @@
 ## 1. 项目概览
 
 - **产品**：chanzhiEPS（蝉知），企业门户 CMS，包含文章、产品/商城、论坛、博客、手册、企业信息等模块。
-- **版本**：`5.2.1`（`system/config/config.php` 中的 `$config->version`）。
+- **版本**：`5.2.2`（`system/config/config.php` 中的 `$config->version`）。
 - **许可**：ZPL 1.2。
 - **技术栈**：PHP + 自研 MVC 框架（ZenTaoPHP 风格）+ MySQL + 原生 PHP 视图；前端基于 ZUI，主题样式使用 LESS。
 - **代码规模**：约 1200 个 PHP 文件，`system/module/` 下 44 个功能模块。
@@ -17,7 +17,7 @@
 - **MySQL**：通过 PDO 访问，库编码 `UTF8`，表前缀 `eps_`，关闭严格模式；已在 MySQL 5.7.44 验证。
 - **Web 服务器**：Nginx 或 Apache（需 URL 重写），站点根目录指向 `www/`。
 - **Composer**：仓库没有 `autoload` 配置，也没有 `vendor/`；框架与第三方库（Smarty、lessc、PHPMailer、pclzip 等）位于 `system/lib/` 并手动 include。不要假设 `composer install` 后类可自动加载。
-- **测试**：没有 PHPUnit 或其它自动化测试套件，验证以语法检查、CLI 路由和手工页面验证为主。已覆盖安装、前后台页面、CLI 路由、 `check.php` 与 5.2_php8 → 5.2.1 升级流程。
+- **测试**：没有 PHPUnit 或其它自动化测试套件，验证以语法检查、CLI 路由和手工页面验证为主。已覆盖安装、前后台页面、CLI 路由、 `check.php` 与 5.2_php8 → 5.2.1 → 5.2.2 升级流程。
 - **PHP 8.4+ 兼容约束**：不要重新引入 `E_STRICT`、`trigger_error(..., E_USER_ERROR)`、将 `header()` 返回值传给 `die()`、隐式 nullable 参数、无 `#[AllowDynamicProperties]` 的动态属性类；新增模块类名不得与 PHP 内置类冲突（如 `Error`）。
 
 ## 3. 目录结构
@@ -126,11 +126,15 @@ $this->dao->update(TABLE_ARTICLE)->data($article)->where('id')->eq($id)->exec();
 
 - **后台/RUN_MODE != front**：视图在 `system/module/<module>/view/<method>.<type>.php`，如 `admin.html.php`。
 - **前台**：视图在 `www/template/<template>/<module>/<method>.html.php`，如 `www/template/default/article/browse.html.php`。
-- 移动端视图使用 `m.` 前缀（如 `m.browse.html.php`）；找不到时回退桌面视图。
+- **移动端**：使用独立模板 `www/template/mobile/`（`helper::getDevice()` 判定）；`m.` 前缀只在 `$config->template->mobile` 未定义时作为回退，当前配置下不会使用。
 - 视图类型由 `$config->views` 支持：`html`、`mhtml`、`json`、`xml`。
 - 在视图中可直接使用 `$this->view` 上赋的值、全局 `$lang`、`$config`，以及 `html::`、`js::`、`css::` 等 helper。
 - 前台视图默认是原生 PHP 模板；`$config->template->parser` 设为其它值时才启用对应解析器（`system/framework/parser.smarty.class.php`）。
-- 主题样式位于 `www/theme/<template>/<theme>/style.less`，由 `ui` 模块调用 `system/lib/lessc` 编译；默认桌面模板 `default/default`，移动模板 `mobile/colorful`。不要直接改 `www/data/` 下的编译产物。
+- 模板元数据在 `www/template/<template>/_doc/{zh-cn,en,zh-tw}.yaml`，关键字段包括 `code`、`device`、`themes`；主题样式在 `www/theme/<template>/<theme>/style.less`，由 `ui` 模块调用 `system/lib/lessc` 编译到 `www/data/css/<template>_<theme>.css`，预览图同目录 `preview.png`。不要直接改 `www/data/` 下的编译产物。
+- `uiModel::createCustomerCss()` 每次成功生成主题 CSS 后会更新 `system.common.template.customVersion`，浏览器会自动刷新主题缓存。
+- 内置模板：`default`（桌面）、`mobile`（移动）、`wenyinos`（玟茵紫，顶部导航采用 wenyinos 风格紫色渐变，内容区使用紫色主题；不使用全屏 banner）。
+- 模板/主题切换走后台“外观/主题管理”（`ui/setTemplate`），支持多模板选择和本地主题的自定义、上传、安装、导出、删除；在线主题市场已移除。
+- 新增模板时复制 `www/template/default/` 作为基线；`blockModel::getPageBlocks()` 会在新模板没有 `eps_layout` 记录时回退到 `default` 的区块布局，无需先复制布局数据。
 
 ### 6.5 多语言
 
@@ -170,7 +174,7 @@ system/module/<module>/ext/
   1. 更新 `system/db/chanzhi.sql`（新安装）；
   2. 新增 `system/db/upgrade<version>.sql`（已有站点升级，命名参照现有文件）；
   3. 如涉及版本号，更新 `system/config/config.php` 的 `$config->version`。
-- 当前版本为 `5.2.1`，`system/db/` 中最新的升级脚本是 `upgrade5.2.1.sql`。
+- 当前版本为 `5.2.2`，`system/db/` 中最新的升级脚本是 `upgrade5.2.2.sql`。
 - `eps_user.password` 为 `varchar(255)`，用于完整存储 bcrypt 哈希（60 字符）；`upgrade5.2.1.sql` 会放宽旧库的 `char(32)` 字段。
 - 安装：访问 `www/install.php`，成功后生成 `system/config/my.php`。
 - 升级：访问 `www/upgrade.php`；`run.sh` 在检测到 `my.php` 后会删除 `install.php` 与 `upgrade.php`。

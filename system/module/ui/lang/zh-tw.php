@@ -38,12 +38,10 @@ $lang->ui->importedBlocks  = '導入區塊';
 $lang->ui->matchedBlock    = '對應區塊';
 $lang->ui->createBlock     = '導入新區塊';
 $lang->ui->useOldBlock     = '使用已有區塊';
-$lang->ui->themeStore      = '主題市場';
 $lang->ui->help            = "幫助";
 $lang->ui->deleteLogo      = "刪除Logo";
 $lang->ui->setCode         = "代碼";
 $lang->ui->enableTheme     = "使用此主題";
-$lang->ui->industry        = "行業";
 
 $lang->ui->noLogo                 = "未上傳Logo";
 $lang->ui->noFavicon              = "未上傳小表徵圖";

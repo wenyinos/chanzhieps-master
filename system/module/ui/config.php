@@ -2,8 +2,6 @@
 <?php
 $config->ui->systemThemes = array('default.tartan', 'default.wide');
 
-$config->ui->themeSnapRoot = 'http://www.chanzhi.org/data/upload/';
-
 $config->ui->groups = array('basic', 'navbar', 'block', 'button', 'footer');
 $config->ui->require = new stdclass();
 $config->ui->require->exportTheme = "name,code,author,email";

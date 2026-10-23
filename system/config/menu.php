@@ -7,7 +7,7 @@ $config->menus->user    = 'user,message,comment,reply,forum,wechat,submittion';
 $config->menus->promote = 'stat,tag,links,setstat,';
 $config->menus->design  = 'ui,logo,slide,nav,block,visual,others';
 $config->menus->setting = 'site,company,security';
-$config->menus->open    = 'package,themestore';
+$config->menus->open    = 'package';
 
 $config->menuGroups = new stdclass();
 foreach($config->menus as $group => $modules)

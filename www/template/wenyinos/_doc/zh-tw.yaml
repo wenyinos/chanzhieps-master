@@ -1,0 +1,13 @@
+name: 玟茵紫模板
+parser: default
+code: wenyinos
+type: template
+author: chanzhiEPS
+desc: 以玟茵開源社區為視覺參考的現代紫色前台模板
+version: 1.0.0
+chanzhiVersion: 5.2.2
+charge: free
+device: ",desktop,"
+license: http://www.chanzhi.org/book/chanzhieps/58_license.html
+themes:
+   wenyinos: 玟茵紫

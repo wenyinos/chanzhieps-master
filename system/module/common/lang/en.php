@@ -194,7 +194,6 @@ $lang->menu->site     = 'site|site|setbasic|';
 $lang->menu->security = 'Security|site|setsecurity|';
 
 $lang->menu->package    = 'Package|package|browse|';
-$lang->menu->themestore = 'Theme stroe|ui|themestore|';
 
 /* Menu groups setting. */
 $lang->menuGroups = new stdclass();

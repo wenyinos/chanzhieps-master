@@ -1,0 +1,13 @@
+name: Wenyin Purple
+parser: default
+code: wenyinos
+type: template
+author: chanzhiEPS
+desc: A modern purple front-end template inspired by the Wenyinos community site.
+version: 1.0.0
+chanzhiVersion: 5.2.2
+charge: free
+device: ",desktop,"
+license: http://www.chanzhi.org/book/chanzhieps/58_license.html
+themes:
+   wenyinos: Wenyin Purple

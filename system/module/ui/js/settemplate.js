@@ -1,31 +1,5 @@
 $(document).ready(function()
 {
-    var loadStoreContent = function(url)
-    {
-        $('#storeSection').load(url + ' #mainArea', function()
-        {
-            $('#industryBox > .tree > li > a[href*="&param=' + $('#storeThemes').data('param') + '"]').parent().addClass('active');
-        });
-    }
-
-    var storeContentLoaded = false;
-    var $loader = $('#storeSection > .load-icon').clone();
-    $('#typeNav > li > a[href="#storeSection"]').on('shown.zui.tab', function(e)
-    {
-        if(!storeContentLoaded)
-        {
-            loadStoreContent(createLink('ui', 'themestore'));
-            storeContentLoaded = true;
-        }
-    });
-
-    $('#storeSection').on('click', '#industryBox a', function(e)
-    {
-        $('#storeSection').empty().append($loader);
-        e.preventDefault();
-        loadStoreContent($(this).attr('href'));
-    });
-
     $('.theme').on('click', '.theme-img, .theme-name', function(e)
     {
         e.preventDefault();

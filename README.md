@@ -4,7 +4,7 @@
 
 ChanzhiEPS is an open-source CMS/ERP system built with PHP, designed for enterprise portals, content management, e-commerce, and community forums.
 
-**Version:** 5.2.1 | **License:** ZPL 1.2 | **PHP:** 8.4+
+**Version:** 5.2.2 | **License:** ZPL 1.2 | **PHP:** 8.4+
 
 ## Download
 
@@ -23,6 +23,12 @@ Source packages are published on the [Releases](https://github.com/wenyinos/chan
 - SEO optimization and sitemap generation
 - User management with role-based access control
 - Mobile-responsive templates
+
+## Templates and Themes
+
+- Built-in front-end templates: `default`, `mobile`, and `wenyinos` (purple content theme inspired by wenyinos.com; the header uses a Wenyinos-inspired purple navigation bar and there is no full-screen banner).
+- Template views live in `www/template/<name>/`; metadata in `_doc/*.yaml`; theme styles in `www/theme/<template>/<theme>/style.less`.
+- The online theme store has been removed. Local themes can still be selected, customized, uploaded, installed, exported, and deleted from Admin → Appearance.
 
 ## Requirements
 

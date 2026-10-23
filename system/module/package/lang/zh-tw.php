@@ -117,7 +117,3 @@ $lang->package->errorConflicts               = '與插件“%s”衝突！';
 $lang->package->errorDepends                 = '以下依賴插件沒有安裝或版本不正確：<br /><br /> %s';
 $lang->package->errorIncompatible            = '該插件與您的蟬知版本不兼容';
 $lang->package->errorUninstallDepends        = '插件“%s”依賴該插件，不能卸載';
-
-/* Add theme items.*/
-$lang->theme = new stdclass();
-$lang->theme->common = '主題市場';
