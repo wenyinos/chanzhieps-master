@@ -44,6 +44,7 @@
  * The `lessc_formatter` takes a CSS tree, and dumps it to a formatted string,
  * handling things like indentation.
  */
+#[AllowDynamicProperties]
 class lessc {
 	static public $VERSION = "v0.4.0";
 	static protected $TRUE = array("keyword", "true");
@@ -751,7 +752,7 @@ class lessc {
 		case "comment":
 			$out->lines[] = $prop[1];
 			break;
-		case "import";
+		case "import":
 			list(, $importPath, $importId) = $prop;
 			$importPath = $this->reduce($importPath);
 
@@ -1213,7 +1214,8 @@ class lessc {
 
 	protected function lib_luma($color) {
 	    $color = $this->coerceColor($color);
-	    return (0.2126 * $color[0] / 255) + (0.7152 * $color[1] / 255) + (0.0722 * $color[2] / 255);
+	    if(!is_array($color)) return 0;
+	    return (0.2126 * (float)$color[1] / 255) + (0.7152 * (float)$color[2] / 255) + (0.0722 * (float)$color[3] / 255);
 	}
 
 	protected function assertColor($value, $error = "expected color value") {
@@ -1507,8 +1509,8 @@ class lessc {
 				$width = strlen($colorStr) == 3 ? 16 : 256;
 
 				for ($i = 3; $i > 0; $i--) { // 3 2 1
-					$t = $num % $width;
-					$num /= $width;
+					$t = (int)$num % $width;
+					$num = (int)($num / $width);
 
 					$c[$i] = $t * (256/$width) + $t * floor(16/$width);
 				}
@@ -2208,6 +2210,7 @@ class lessc {
 
 // responsible for taking a string of LESS code and converting it into a
 // syntax tree
+#[AllowDynamicProperties]
 class lessc_parser {
 	static protected $nextBlockId = 0; // used to uniquely identify blocks
 
@@ -3429,7 +3432,7 @@ class lessc_parser {
 		if ($eatWhitespace === null) $eatWhitespace = $this->eatWhiteDefault;
 
 		$r = '/'.$regex.($eatWhitespace && !$this->writeComments ? '\s*' : '').'/Ais';
-		if (preg_match($r, $this->buffer, $out, null, $this->count)) {
+		if (preg_match($r, $this->buffer, $out, 0, $this->count)) {
 			$this->count += strlen($out[0]);
 			if ($eatWhitespace && $this->writeComments) $this->whitespace();
 			return true;
@@ -3441,7 +3444,7 @@ class lessc_parser {
 	protected function whitespace() {
 		if ($this->writeComments) {
 			$gotWhite = false;
-			while (preg_match(self::$whitePattern, $this->buffer, $m, null, $this->count)) {
+			while (preg_match(self::$whitePattern, $this->buffer, $m, 0, $this->count)) {
 				if (isset($m[1]) && empty($this->commentsSeen[$this->count])) {
 					$this->append(array("comment", $m[1]));
 					$this->commentsSeen[$this->count] = true;
@@ -3460,7 +3463,7 @@ class lessc_parser {
 	protected function peek($regex, &$out = null, $from=null) {
 		if (is_null($from)) $from = $this->count;
 		$r = '/'.$regex.'/Ais';
-		$result = preg_match($r, $this->buffer, $out, null, $from);
+		$result = preg_match($r, $this->buffer, $out, 0, $from);
 
 		return $result;
 	}
@@ -3588,6 +3591,7 @@ class lessc_parser {
 
 }
 
+#[AllowDynamicProperties]
 class lessc_formatter_classic {
 	public $indentChar = "  ";
 
@@ -3683,6 +3687,7 @@ class lessc_formatter_classic {
 	}
 }
 
+#[AllowDynamicProperties]
 class lessc_formatter_compressed extends lessc_formatter_classic {
 	public $disableSingle = true;
 	public $open = "{";
@@ -3696,6 +3701,7 @@ class lessc_formatter_compressed extends lessc_formatter_classic {
 	}
 }
 
+#[AllowDynamicProperties]
 class lessc_formatter_lessjs extends lessc_formatter_classic {
 	public $disableSingle = true;
 	public $breakSelectors = true;

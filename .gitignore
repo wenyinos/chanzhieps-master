@@ -1,1 +1,3 @@
 ChanzhiEPS_SECURITY_ASSESSMENT.md
+system/config/my.php
+system/tmp/log/*.php

@@ -40,7 +40,7 @@ $config = $app->config;
 
 /* Check the reqeust is getconfig or not. Check installed or not. */
 if(isset($_GET['mode']) and $_GET['mode'] == 'getconfig') die($app->exportConfig());
-if(!isset($config->installed) or !$config->installed) die(header('location: install.php'));
+if(!isset($config->installed) or !$config->installed) { header('location: install.php'); die(); }
 
 /* Change the request settings. */
 $config->frontRequestType = $config->requestType;

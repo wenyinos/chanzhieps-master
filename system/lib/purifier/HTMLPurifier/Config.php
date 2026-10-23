@@ -190,7 +190,7 @@ class HTMLPurifier_Config
             $d = $this->def->info[$key];
             $this->triggerError(
                 'Cannot get value from aliased directive, use real name ' . $d->key,
-                E_USER_ERROR
+                E_USER_WARNING
             );
             return;
         }
@@ -202,7 +202,7 @@ class HTMLPurifier_Config
                     $this->lock .
                     ' is active, this probably indicates a Definition setup method ' .
                     'is accessing directives that are not within its namespace',
-                    E_USER_ERROR
+                    E_USER_WARNING
                 );
                 return;
             }
@@ -321,7 +321,7 @@ class HTMLPurifier_Config
                 $this->triggerError(
                     'Double-aliases not allowed, please fix '.
                     'ConfigSchema bug with' . $key,
-                    E_USER_ERROR
+                    E_USER_WARNING
                 );
                 return;
             }
@@ -847,7 +847,7 @@ class HTMLPurifier_Config
     public function isFinalized($error = false)
     {
         if ($this->finalized && $error) {
-            $this->triggerError($error, E_USER_ERROR);
+            $this->triggerError($error, E_USER_WARNING);
         }
         return $this->finalized;
     }

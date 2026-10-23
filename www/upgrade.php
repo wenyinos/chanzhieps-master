@@ -41,7 +41,8 @@ $app->setDebug();
 
 /* Check the installed version is the latest or not. */
 $config->installedVersion = $common->loadModel('setting')->getVersion();
-if(version_compare($config->version, $config->installedVersion) <= 0) die(header('location: index.php'));
+if($config->installedVersion == '5.2_php8') $config->installedVersion = '5.2'; // Normalize the legacy PHP 8 build version.
+if(version_compare($config->version, $config->installedVersion) <= 0) { header('location: index.php'); die(); }
 
 /* Run it. */
 $app->parseRequest();

@@ -567,7 +567,7 @@ class helper
     public static function header301($locate)
     {
         header('HTTP/1.1 301 Moved Permanently');
-        die(header('Location:' . $locate));
+        header('Location:' . $locate); die();
     }
 
     /**
@@ -736,9 +736,9 @@ class helper
     {
         if(strpos($network, '/') === false) return $ip == $network;
 
-        $ip = (double) (sprintf("%u", ip2long($ip)));
+        $ip = (float) (sprintf("%u", ip2long($ip)));
         $s  = explode('/', $network);
-        $networkStart = (double) (sprintf("%u", ip2long($s[0])));
+        $networkStart = (float) (sprintf("%u", ip2long($s[0])));
         $networkLen = pow(2, 32 - $s[1]);
         $networkEnd = $networkStart + $networkLen - 1;
 
@@ -992,7 +992,7 @@ function checkAdminEntry()
         if(strpos($file, '.php') !== false and !in_array($file, $defaultFiles))
         {
             $contents = file_get_contents($path . '/' . $file);
-            if(strpos($contents, "'RUN_MODE', 'admin'") && strpos($_SERVER['PHP_SELF'], '/admin.php') !== false) die(header("location: " . getWebRoot()));
+            if(strpos($contents, "'RUN_MODE', 'admin'") && strpos($_SERVER['PHP_SELF'], '/admin.php') !== false) { header("location: " . getWebRoot()); die(); }
         }
     }
 }
@@ -1080,7 +1080,7 @@ function zget($var, $key, $valueWhenNone = false, $valueWhenExists = false)
 function header301($url)
 {
     header('HTTP/1.1 301 Moved Permanently');
-    die(header('Location:' . $url));
+    header('Location:' . $url); die();
 }
 
 /**

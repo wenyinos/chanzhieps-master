@@ -145,7 +145,7 @@ class HTMLPurifier_ContentSets
         // error-out
         trigger_error(
             'Could not determine which ChildDef class to instantiate',
-            E_USER_ERROR
+            E_USER_WARNING
         );
         return false;
     }

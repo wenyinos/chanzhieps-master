@@ -150,24 +150,33 @@ foreach(glob($moduleRoot . '*') as $modulePath)
     }
 }
 
-echo '-------------php5.4 synatax checking-----------------' . "\n";
+echo '-------------PHP syntax checking-----------------' . "\n";
 class app {function loadLang() {}}
 $app = new app;
 $lang = new stdclass();
 
-error_reporting(E_WARNING | E_STRICT );
+/* Initialize all module lang and config objects before including any lang file. */
 foreach(glob($moduleRoot . '*') as $modulePath)
 {
+    if(!is_dir($modulePath)) continue;
+    $moduleName = basename($modulePath);
+    if(!isset($lang->$moduleName)) $lang->$moduleName = new stdclass();
+    if(!isset($config->$moduleName)) $config->$moduleName = new stdclass();
+}
+
+error_reporting(E_WARNING | E_DEPRECATED);
+foreach(glob($moduleRoot . '*') as $modulePath)
+{
+    if(!is_dir($modulePath)) continue;
     $moduleName = basename($modulePath);
     $cnLangFile = $modulePath . '/lang/zh-cn.php';
     $enLangFile = $modulePath . '/lang/en.php';
     $configFile = $modulePath . '/config.php';
 
     if(!isset($lang->$moduleName)) $lang->$moduleName = new stdclass();
-    if(!isset($config->$moduleName)) $lang->$config = new stdclass();
+    if(!isset($config->$moduleName)) $config->$moduleName = new stdclass();
     if(file_exists($cnLangFile)) include $cnLangFile;
-    if(file_exists($enLangFile)) include $enLangFile;
-    if(file_exists($configFile)) include $configFile;
+    if(file_exists($configFile) and strpos(file_get_contents($configFile), '$this->') === false and strpos(file_get_contents($configFile), 'commonModel::') === false) include $configFile;
 }
 
 if( 1 == 0)

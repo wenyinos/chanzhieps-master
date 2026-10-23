@@ -1206,7 +1206,7 @@ class mobile
      */
     public function match($regex, $userAgent = null)
     {
-        $match = (bool) preg_match(sprintf('#%s#is', $regex), (false === empty($userAgent) ? $userAgent : $this->userAgent), $matches);
+        $match = (bool) preg_match(sprintf('#%s#is', $regex), (string)(false === empty($userAgent) ? $userAgent : $this->userAgent), $matches);
         // If positive match is found, store the results for debug.
         if ($match) {
             $this->matchingRegex = $regex;

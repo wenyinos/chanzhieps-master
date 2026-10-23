@@ -238,7 +238,7 @@ class HTMLPurifier_Lexer
      */
     public function tokenizeHTML($string, $config, $context)
     {
-        trigger_error('Call to abstract class', E_USER_ERROR);
+        trigger_error('Call to abstract class', E_USER_WARNING);
     }
 
     /**

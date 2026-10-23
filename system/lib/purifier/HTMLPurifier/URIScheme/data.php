@@ -105,7 +105,7 @@ class HTMLPurifier_URIScheme_data extends HTMLPurifier_URIScheme
             }
             $image_code = $info[2];
         } else {
-            trigger_error("could not find exif_imagetype or getimagesize functions", E_USER_ERROR);
+            trigger_error("could not find exif_imagetype or getimagesize functions", E_USER_WARNING);
         }
         $real_content_type = image_type_to_mime_type($image_code);
         if ($real_content_type != $content_type) {

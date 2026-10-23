@@ -28,7 +28,7 @@ class HTMLPurifier_AttrDef_HTML_LinkTypes extends HTMLPurifier_AttrDef
             trigger_error(
                 'Unrecognized attribute name for link ' .
                 'relationship.',
-                E_USER_ERROR
+                E_USER_WARNING
             );
             return;
         }

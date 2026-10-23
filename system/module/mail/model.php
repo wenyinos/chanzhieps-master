@@ -102,7 +102,7 @@ class mailModel extends model
         elseif(strpos(PHP_OS, 'WIN') !== false)
         {
             $smtpHosts = array();
-            $result    = `nslookup -q=mx {$domain} 2>nul`;
+            $result    = shell_exec("nslookup -q=mx {$domain} 2>nul");
             $lines     = explode("\n", $result);
             foreach($lines as $line)
             {

@@ -51,7 +51,7 @@ $lang->install->result     = 'Result';
 $lang->install->action     = 'How to fix';
 
 $lang->install->phpVersion = 'PHP version';
-$lang->install->phpFail    = 'Must > 5.2.0';
+$lang->install->phpFail    = 'Must > 8.4.0';
 
 $lang->install->pdo          = 'PDO extension';
 $lang->install->pdoFail      = 'Edit the php.ini file to load PDO extsion.';

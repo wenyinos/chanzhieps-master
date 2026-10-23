@@ -68,7 +68,7 @@ class statModel extends model
      * @access public
      * @return array
      */
-    public function getTypeLine($type = '', $timeType, $labels, $groupBy = 'item')
+    public function getTypeLine($type, $timeType, $labels, $groupBy = 'item')
     {
         $traffic = $this->dao->select('*')->from(TABLE_STATREPORT)
             ->where('type')->eq($type)

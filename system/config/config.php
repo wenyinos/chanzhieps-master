@@ -10,12 +10,16 @@
  * @link        http://www.chanzhi.org
  */
 /* Judge class config and function getWebRoot exists or not, make sure php shells can work. */
-if(!class_exists('config')){class config{}}
+if(!class_exists('config'))
+{
+    #[AllowDynamicProperties]
+    class config{}
+}
 if(!function_exists('getWebRoot')){function getWebRoot(){}}
 
 /* The basic settings. */
 $config = new config();
-$config->version     = '5.2_php8';           // The version number, don't change.
+$config->version     = '5.2.1';              // The version number, don't change.
 $config->encoding    = 'UTF-8';           // The encoding.
 $config->cookiePath  = '/';               // The path of cookies.
 $config->webRoot     = getWebRoot();      // The web root.
@@ -172,6 +176,8 @@ if(file_exists($sensitiveConfig)) include $sensitiveConfig;
 if(RUN_MODE == 'admin')           include $configRoot . 'menu.php';
 
 /* The tables. */
+if(!defined('TABLE_CONFIG'))
+{
 define('TABLE_CONFIG',         $config->db->prefix . 'config');
 define('TABLE_CATEGORY',       $config->db->prefix . 'category');
 define('TABLE_PACKAGE',        $config->db->prefix . 'package');
@@ -213,6 +219,7 @@ define('TABLE_STATREGION',     $config->db->prefix . 'statregion');
 define('TABLE_SCORE',          $config->db->prefix . 'score');
 define('TABLE_BLACKLIST',      $config->db->prefix . 'blacklist');
 define('TABLE_OPERATIONLOG',   $config->db->prefix . 'operationlog');
+}
 
 /* Include extension config files. */
 $extConfigFiles = glob($configRoot . 'ext' . DS . '*.php');

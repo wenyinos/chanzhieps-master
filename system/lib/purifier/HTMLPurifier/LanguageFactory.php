@@ -176,7 +176,7 @@ class HTMLPurifier_LanguageFactory
                 trigger_error(
                     'Circular fallback reference in language ' .
                     $code,
-                    E_USER_ERROR
+                    E_USER_WARNING
                 );
                 $fallback = 'en';
             }

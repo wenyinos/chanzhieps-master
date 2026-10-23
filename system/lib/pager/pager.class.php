@@ -14,6 +14,7 @@
  *
  * @package framework
  */
+#[AllowDynamicProperties]
 class pager
 {
     /**

@@ -190,7 +190,7 @@ class control
         $this->view->config  = $config;
         $this->view->common  = $common;
         $this->view->session = $app->session;
-        if(RUN_MODE == 'front') $this->view->layouts = $this->loadModel('block')->getPageBlocks($this->moduleName, $this->methodName);
+        if(RUN_MODE == 'front' or RUN_MODE == 'shell') $this->view->layouts = $this->loadModel('block')->getPageBlocks($this->moduleName, $this->methodName);
 
         $this->setSuperVars();
     }
@@ -324,7 +324,7 @@ class control
         $viewExtPath = $this->app->getModuleExtPath($moduleName, 'view');
 
         $viewType = $this->viewType == 'mhtml' ? 'html' : $this->viewType;
-        if((RUN_MODE != 'front') or (strpos($modulePath, 'module' . DS . 'ext' . DS) !== false))
+        if((RUN_MODE != 'front' and RUN_MODE != 'shell') or (strpos($modulePath, 'module' . DS . 'ext' . DS) !== false))
         {
             /* If not in front mode or is ext module, view file is in modeule path. */
             $mainViewFile = $modulePath . 'view' . DS . $this->viewPrefix . $methodName . '.' . $viewType . '.php';
@@ -684,8 +684,8 @@ class control
         chdir(dirname($file2Included));
         if($moduleName != $this->moduleName) helper::import($file2Included);
         
-        /* Set the name of the class to be called. */
-        $className = class_exists("my$moduleName") ? "my$moduleName" : $moduleName;
+        /* Set the name of the class to be called. Some module names, such as error, conflict with PHP built-in classes. */
+        $className = class_exists("my$moduleName") ? "my$moduleName" : (class_exists($moduleName . 'Control') ? $moduleName . 'Control' : $moduleName);
         if(!class_exists($className)) $this->app->triggerError(" The class $className not found", __FILE__, __LINE__, $exit = true);
 
         /* Parse the params, create the $module control object. */

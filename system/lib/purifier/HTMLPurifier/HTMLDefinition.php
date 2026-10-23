@@ -266,7 +266,7 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
         } else {
             trigger_error(
                 'Cannot use non-block element as block wrapper',
-                E_USER_ERROR
+                E_USER_WARNING
             );
         }
 
@@ -278,7 +278,7 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
         } else {
             trigger_error(
                 'Cannot use unrecognized element as parent',
-                E_USER_ERROR
+                E_USER_WARNING
             );
             $this->info_parent_def = $this->manager->getElement($this->info_parent, true);
         }

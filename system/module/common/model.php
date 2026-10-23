@@ -664,7 +664,7 @@ class commonModel extends model
      * @access public
      * @return bool
      */
-    public static function printLink($module, $method, $vars = '', $label, $misc = '')
+    public static function printLink($module, $method, $vars, $label, $misc = '')
     {
         if(!commonModel::hasPriv($module, $method)) return false;
         echo html::a(helper::createLink($module, $method, $vars), $label, $misc);
@@ -962,7 +962,7 @@ class commonModel extends model
         global $config;
 
         $requestType = $config->requestType;
-        $config->requestType = $config->frontRequestType;
+        $config->requestType = isset($config->frontRequestType) ? $config->frontRequestType : $config->requestType;
         $link = helper::createLink($module, $method, $vars, $alias, $viewType);
         $link = str_replace($_SERVER['SCRIPT_NAME'], $config->webRoot . 'index.php', $link);
         $config->requestType = $requestType;

@@ -1,3 +1,14 @@
+2026-10-23 5.2.1发布
+完整移植到 PHP 8.4+，并已在 PHP 8.5 + MySQL 5.7 环境完成安装、前后台、CLI 与升级验证
+修复 error 模块类名与 PHP 内置 Error 类冲突的问题
+修复 trigger_error(E_USER_ERROR)、exit(header())、E_STRICT 等 PHP 8.4/8.5 弃用项
+修复 Smarty、PHPMailer、lessc、HTMLPurifier 的隐式 nullable、动态属性、浮点取模、preg_match 参数与 E_USER_ERROR 弃用问题
+修复 lessc 颜色亮度计算的索引错误与 PHP 8 算术类型错误
+修复模块方法中可选参数位于必选参数之前的弃用告警
+修复移动端模板未加括号的嵌套三元表达式
+修复后台 404 页面缺少视图的问题
+扩大用户密码字段以完整存储 bcrypt 哈希，新增 upgrade5.2.1.sql
+新增中文版 README.zh-CN.md，并添加基于 tag 自动发布源码包的 GitHub Actions workflow
 2016-03-15 5.2发布
 调整主题相关文件的路径
 调整主题市场界面

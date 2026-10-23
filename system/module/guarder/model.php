@@ -246,7 +246,7 @@ EOT;
      * @access public
      * @return void
      */
-    public function logOperation($type = 'ip', $action, $identity = '')
+    public function logOperation($type, $action, $identity = '')
     {
         if($this->config->site->filterFunction != 'open') return true;
         if($identity == '')

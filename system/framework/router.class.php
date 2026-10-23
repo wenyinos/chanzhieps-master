@@ -369,7 +369,7 @@ class router
      */
     protected function setPathFix()
     {
-        define('DS', DIRECTORY_SEPARATOR);
+        if(!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
     }
  
     /**
@@ -1239,8 +1239,8 @@ class router
         chdir(dirname($file2Included));
         include $file2Included;
 
-        /* Set the class name of the control. */
-        $className = class_exists("my$moduleName") ? "my$moduleName" : $moduleName;
+        /* Set the class name of the control. Some module names, such as error, conflict with PHP built-in classes. */
+        $className = class_exists("my$moduleName") ? "my$moduleName" : (class_exists($moduleName . 'Control') ? $moduleName . 'Control' : $moduleName);
         if(!class_exists($className)) $this->triggerError("the control $className not found", __FILE__, __LINE__, $exit = true);
 
         /* Create a instance of the control. */
@@ -1694,8 +1694,15 @@ class router
         extract($trace[1]);
         $log .= ", last called by $file on line $line through function $function.\n";
 
-        /* Trigger it. */
-        trigger_error($log, $exit ? E_USER_ERROR : E_USER_WARNING);
+        /* Trigger it. PHP 8.4 deprecates passing E_USER_ERROR to trigger_error(). */
+        if($exit)
+        {
+            if(PHP_SAPI == 'cli') fwrite(STDERR, $log . "\n");
+            if(!empty($this->config->debug) and PHP_SAPI != 'cli') echo "<html><head><meta charset='utf-8'></head><body>" . nl2br($log) . "</body></html>";
+            exit;
+        }
+
+        trigger_error($log, E_USER_WARNING);
     }
 
     /**

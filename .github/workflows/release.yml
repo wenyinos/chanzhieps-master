@@ -1,0 +1,68 @@
+name: Release source packages
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release, for example v5.2.1'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve release tag
+        id: release
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+        run: |
+          if [ -n "$INPUT_TAG" ]; then
+            tag="$INPUT_TAG"
+          else
+            tag="${GITHUB_REF_NAME}"
+          fi
+          version="${tag#v}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch tags
+        run: git fetch --tags --force
+
+      - name: Build source packages
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git archive --format=zip --prefix="chanzhiEPS-${VERSION}/" -o "chanzhiEPS-${VERSION}.zip" "$TAG"
+          git archive --format=tar.gz --prefix="chanzhiEPS-${VERSION}/" -o "chanzhiEPS-${VERSION}.tar.gz" "$TAG"
+          sha256sum "chanzhiEPS-${VERSION}.zip" "chanzhiEPS-${VERSION}.tar.gz" > SHA256SUMS
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "chanzhiEPS-${VERSION}.zip" "chanzhiEPS-${VERSION}.tar.gz" SHA256SUMS --clobber
+          else
+            gh release create "$TAG" \
+              "chanzhiEPS-${VERSION}.zip" \
+              "chanzhiEPS-${VERSION}.tar.gz" \
+              SHA256SUMS \
+              --title "chanzhiEPS ${VERSION}" \
+              --generate-notes \
+              --verify-tag
+          fi

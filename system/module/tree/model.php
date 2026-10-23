@@ -226,7 +226,7 @@ class treeModel extends model
         }
 
         $topMenu = @array_pop($treeMenu);
-        $topMenu = explode("\n", trim($topMenu));
+        $topMenu = explode("\n", trim((string)$topMenu));
         if(!$removeRoot) $lastMenu[] = '/';
 
         foreach($topMenu as $menu)
@@ -252,7 +252,7 @@ class treeModel extends model
      * @access public
      * @return string   the html code of the tree menu.
      */
-    public function getTreeMenu($type = 'article', $startCategoryID = 0, $userFunc, $siteID = 0)
+    public function getTreeMenu($type, $startCategoryID, $userFunc, $siteID = 0)
     {
         $treeMenu = array();
         $stmt = $this->dbh->query($this->buildQuery($type, $startCategoryID, $siteID));

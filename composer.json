@@ -5,7 +5,7 @@
     "license": "ZPL-1.2",
     "homepage": "http://www.chanzhi.org",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.4",
         "ext-pdo": "*",
         "ext-mbstring": "*",
         "ext-json": "*",

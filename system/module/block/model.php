@@ -318,7 +318,7 @@ class blockModel extends model
      * @access public
      * @return void
      */
-    public function createEntry($template, $region, $block = null, $key, $grade = 1)
+    public function createEntry($template, $region, $block, $key, $grade = 1)
     {
         $blockOptions[''] = $this->lang->block->select;
         $blockOptions += $this->getPairs($template);
@@ -564,7 +564,7 @@ class blockModel extends model
      * @access private
      * @return string
      */
-    private function parseBlockContent($block, $withGrid = false, $containerHeader, $containerFooter)
+    private function parseBlockContent($block, $withGrid, $containerHeader, $containerFooter)
     {
         $withGrid = ($withGrid and isset($block->grid));
         $isRegion = isset($block->type) && $block->type === 'region';
@@ -915,7 +915,7 @@ class blockModel extends model
      * @access public
      * @return int $blockID
      */
-    public function createRegion($template = '', $page, $region)
+    public function createRegion($template, $page, $region)
     {
         if($template == '') $template = $this->config->template->{$this->app->device}->name;
 

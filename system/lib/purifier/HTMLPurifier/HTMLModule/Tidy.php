@@ -114,7 +114,7 @@ class HTMLPurifier_HTMLModule_Tidy extends HTMLPurifier_HTMLModule
         if (!isset($this->fixesForLevel[$this->defaultLevel])) {
             trigger_error(
                 'Default level ' . $this->defaultLevel . ' does not exist',
-                E_USER_ERROR
+                E_USER_WARNING
             );
             return;
         }
@@ -162,7 +162,7 @@ class HTMLPurifier_HTMLModule_Tidy extends HTMLPurifier_HTMLModule
                     $e->$type = $fix;
                     break;
                 default:
-                    trigger_error("Fix type $type not supported", E_USER_ERROR);
+                    trigger_error("Fix type $type not supported", E_USER_WARNING);
                     break;
             }
         }

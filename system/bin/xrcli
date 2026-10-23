@@ -10,7 +10,8 @@
  * @version     $Id$
  * @link        http://www.chanzhi.org
  */
-error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+define('DS', DIRECTORY_SEPARATOR);
 define('RUN_MODE', 'shell');
 define('LANG_CREATED', false);
 date_default_timezone_set('Asia/Shanghai');

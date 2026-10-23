@@ -51,7 +51,7 @@ $lang->install->result     = '检查结果';
 $lang->install->action     = '如何修改';
 
 $lang->install->phpVersion = 'PHP版本';
-$lang->install->phpFail    = 'PHP版本必须大于5.2.0';
+$lang->install->phpFail    = 'PHP版本必须大于8.4.0';
 
 $lang->install->pdo          = 'PDO扩展';
 $lang->install->pdoFail      = '修改PHP配置文件，加载PDO扩展。';
